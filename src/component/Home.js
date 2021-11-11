@@ -4,43 +4,21 @@ import { Link } from 'react-router-dom'
 
 
 
-const LoginBack = styled.div`
+const Header = styled.header`
     width: 100vw;
-    height: 100vh;
-    background-color: white;
+    height: 80px;
+    border-bottom: 1px solid #efefef;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     position: relative;
-    background: #2F80ED;
-`
-
-const LoginBack2 = styled.div`
-    width: 97vw;
-    height: 95vh;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    background: white;
-`
-
-const LoginContainer = styled.div`
-    width: 100vw;
-    height: 300px;
-    /* border: 2px dashed red;     */
-    /* background-color: #56CCF2; */
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: center;
-    color: #2F80ED;
+    /* background: #e5e5e5; */
 `
 
 const Form = styled.form`
-    width: 100vw;
-    height: 265px;
+    width: 570px;
+    display: flex;
+    justify-content: space-around;
     /* border: 2px dashed black;     */
     /* background-color: #56CCF2; */
     /* display: flex; */
@@ -49,13 +27,20 @@ const Form = styled.form`
     /* align-items: space-around; */
 `
 const Input = styled.input`
-    width: 340px;
-    height: 40px;   
-    margin: 10px;
+    height: 33px;
+    /* padding: 0 10px; */
+    border: 1px solid #ddd; 
+    border-radius: 5px;
+    box-sizing: border-box;
+    outline: none;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
+    font-size: 16px;   
+    /* margin-right: 15px; */
 `
 
 const H1 = styled.h1`
-    margin-left: 10px;
+    margin-left: 20px;
+    color: #00c6ff;
 
 `
 
@@ -82,18 +67,17 @@ const Div3 = styled.div`
 `
 
 const Button = styled.button`
-    width: 350px;
-    height: 40px;
+    width: 100px;
+    height: 30px;
+    font-size: 14px;
     font-weight: bold;
-    border: 2px solid #2F80ED;
-    /* border-right: 2px solid black; */
-    /* border-bottom: 2px solid black; */
-    /* border-radius: 10px; */
-    margin: 10px;
-    background: #2F80ED;
-    &:active {
-        background: #021B79;
-        color: white;
+    border: 2px solid #00c6ff;
+    border-radius: 4px;
+    color: white;
+    /* margin: 10px; */
+    background: #55a532 linear-gradient(#00d2ff, #3a7bd5);
+    &:last-child {
+        margin-right: 10px;
     }
 `
 
@@ -116,7 +100,7 @@ const Button = styled.button`
 
 
 
-function Login() {
+function Home() {
     const [password, setPassword] = useState(false);
     const [ID, setId] = useState(false);
     //비밀번호 유효성 검사
@@ -148,9 +132,22 @@ function Login() {
     
 
     return (
-        <LoginBack>
-            <LoginBack2>
-            <LoginContainer>
+        <Header>
+            <H1>PAPER AQUARIUM</H1>
+            <Form>
+            <Input placeholder='userId'/>
+            <Input placeholder='password'/>
+            <Button>Login</Button>
+            <Link to="/signup"><Button>SignUp</Button></Link>
+            </Form>
+        </Header>
+    )
+}
+
+
+{/* <HomeBack>
+            <HomeBack2>
+            <HomeContainer>
                 <H1>PAPER AQUARIUM</H1>
                 <Form>
                     <Div>
@@ -158,21 +155,18 @@ function Login() {
                         {ID?<Div3>영문과 숫자만 가능합니다.</Div3>:<Div3></Div3>}
                     </Div>
                     <Div>
-                        <Input placeholder='Password' className='pwInpu' type='password' onChange={checkPassword}/>
+                        <Input placeholder='Password' className='pwInput' type='password' onChange={checkPassword}/>
                         {password?<Div2>유효하지 않습니다.</Div2>:<Div2></Div2>}
                     </Div>
                     <Div>
-                        <Button>Login</Button>
+                        <Button>LogIn</Button>
                     </Div>
                     <Div>
                     <Link to="/signup"><Button>SignUp</Button></Link>
                     </Div>
                 </Form>
-            </LoginContainer>
-            </LoginBack2>
-        </LoginBack>
-    )
+            </HomeContainer>
+            </HomeBack2>
+        </HomeBack> */}
 
-}
-
-export default Login
+export default Home

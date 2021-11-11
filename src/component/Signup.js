@@ -35,7 +35,7 @@ const LoginContainer = styled.div`
     flex-wrap: wrap;
     align-items: flex-end;
     justify-content: center;
-    color: #2F80ED;
+    /* color: #2F80ED; */
 `
 
 const Form = styled.form`
@@ -55,7 +55,8 @@ const Input = styled.input`
 `
 
 const H1 = styled.h1`
-    margin-left: 10px;
+    /* margin-left: 10px; */
+    color: #00c6ff;
 `
 
 const Div = styled.div`
@@ -83,17 +84,33 @@ const Div3 = styled.div`
 const Button = styled.button`
     width: 350px;
     height: 40px;
+    font-size: 14px;
     font-weight: bold;
-    border: 2px solid #2F80ED;
-    /* border-right: 2px solid black; */
-    /* border-bottom: 2px solid black; */
-    /* border-radius: 10px; */
+    border: 2px solid #00c6ff;
+    border-radius: 4px;
+    color: white;
     margin: 10px;
-    background: #2F80ED;
-    &:active {
-        background: #021B79;
-        color: white;
-    }
+    background: #55a532 linear-gradient(#00d2ff, #3a7bd5);
+    /* &:active { */
+        /* content: ""; */
+        /* position: absolute; */
+        /* top: 0; */
+        /* left: 0; */
+        /* width: 100% ; */
+        /* height: 100% ; */
+        /* background: rgba(0, 0, 0, 0.07); */
+        /* background: #021B79;
+        color: white; */
+    /* }; */
+    /* &:hover::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100% ;
+        height: 100% ;
+        background: rgba(0, 0, 0, 0.07);
+    } */
 `
 
 
