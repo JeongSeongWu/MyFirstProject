@@ -1,6 +1,7 @@
 import Signup from './component/Signup';
 import Home from './component/Home';
 import Mypage from './component/Mypage'
+import Signup2 from './component/Signup2'
 import {
   BrowserRouter,
   Routes,
@@ -18,7 +19,7 @@ function App() {
 
       <Routes>
         <Route path='/' element={<Home/>} />
-        <Route path='/signup' element={<Signup/>} />
+        <Route path='/signup' element={<Signup2/>} />
       </Routes>
 
     </BrowserRouter>

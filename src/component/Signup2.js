@@ -2,104 +2,55 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-
-
-const LoginBack = styled.div`
+const Container = styled.div`
     width: 100vw;
     height: 100vh;
-    background-color: white;
+    /* background-color: lightgray; */
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    /* background: #2F80ED; */
 `
 
-const LoginBack2 = styled.div`
+const LoginContainer = styled.div`
     width: 400px;
     height: 420px;
     border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid red;
-    /* background: #00d2ff; */
     background: #55a532 linear-gradient(#00d2ff, #3a7bd5);
-    /* opacity: 0.3; */
-`
-
-const LoginContainer = styled.div`
-    width: 100vw;
-    height: 450px;
-    border: 2px dashed blue;    
-    /* background-color: #56CCF2; */
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: center;
-    /* color: #2F80ED; */
 `
 
 const Form = styled.form`
-    width: 100vw;
-    height: 350px;
-    border: 2px dashed black;    
-    /* background-color: #56CCF2; */
-    /* display: flex; */
-    /* flex-wrap: wrap; */
-    /* justify-content: center; */
-    /* align-items: space-around; */
+    width: 360px;
+    height: 420px;
+    /* border: 2px dashed black;     */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+`
+const H1 = styled.h1`
+    color: #efefef;
+`
+const Div = styled.div`
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid tomato;     */
 `
 const Input = styled.input`
     width: 340px;
     height: 40px;   
     margin: 10px;
 `
-
-const H1 = styled.h1`
-    /* margin-left: 10px; */
-    color: #efefef;
-`
-
-const Div = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    
-    border: 1px solid tomato;    
-    > .password {
-        /* border: 1px solid red;     */
-        position: relative;
-    }
-`
-
-const Div5 = styled.div`
-    
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid red;    
-    position: relative;
-`
-
 const Div2 = styled.div`
     font-size: .7rem;
     color: rgb(221, 65, 65);
     font-weight: bold;
     position: absolute;
-    right: 570px;
+    right: 20px;
 `
-
-const Div3 = styled.div`
-    font-size: .7rem;
-    color: rgb(221, 65, 65);
-    font-weight: bold;
-    position: absolute;
-    right: 610px;
-`
-
 const Button = styled.button`
     width: 350px;
     height: 40px;
@@ -110,46 +61,8 @@ const Button = styled.button`
     color: white;
     margin: 10px;
     background: #55a532 linear-gradient(#00d2ff, #3a7bd5);
-    /* &:active { */
-        /* content: ""; */
-        /* position: absolute; */
-        /* top: 0; */
-        /* left: 0; */
-        /* width: 100% ; */
-        /* height: 100% ; */
-        /* background: rgba(0, 0, 0, 0.07); */
-        /* background: #021B79;
-        color: white; */
-    /* }; */
-    /* &:hover::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100% ;
-        height: 100% ;
-        background: rgba(0, 0, 0, 0.07);
-    } */
+    
 `
-
-
-
-
-//   function isMoreThan4Length(value) {
-//     return value.length >= 4
-//   }
-  
-//   // [유효성 검증 함수]: 영어 또는 숫자만 가능
-//   function onlyNumberAndEnglish(str) {
-//     return /^[A-Za-z][A-Za-z0-9]*$/.test(str);
-//   }
-  
-//   // [유효성 검증 함수]: 최소 8자 이상하면서, 알파벳과 숫자 및 특수문자(@$!%*#?&) 는 하나 이상 포함
-//   function strongPassword(str) {
-//     return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(str);
-//   }
-
-
 
 function SignUp() {
     const [password, setPassword] = useState(true);
@@ -183,7 +96,33 @@ function SignUp() {
     
 
     return (
-        <LoginBack>
+    <Container>
+        <LoginContainer>
+            <Form>
+                <H1>SignUp</H1>
+                <Div>
+                    <Input placeholder='UserId' className='idInput' onChange={checkId}/>
+                </Div>
+                <Div>
+                    <Input placeholder='Password' className='password' type='password' onChange={checkPassword}/>
+                    {password?<Div2></Div2>:<Div2>Not valid</Div2>}
+                </Div>
+                <Div>
+                    <Input placeholder='Password-check' className='pwInpu' type='password'/>
+                </Div>
+                <Div>
+                    <Input placeholder='e-mail' className='pwInpu' type='email'/>
+                </Div>
+                <Div>
+                    <Button>SignUp</Button>
+                </Div>
+            </Form>
+        </LoginContainer>
+    </Container>
+    )
+
+}
+{/* <LoginBack>
             <LoginBack2>
             <LoginContainer>
                 <H1>SignUp</H1>
@@ -207,9 +146,5 @@ function SignUp() {
                 </Form>
             </LoginContainer>
             </LoginBack2>
-        </LoginBack>
-    )
-
-}
-
+        </LoginBack> */}
 export default SignUp

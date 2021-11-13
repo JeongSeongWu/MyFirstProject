@@ -1,69 +1,48 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-
-
+import Item from './Item'
+import axios from 'axios'
 
 const Header = styled.header`
     width: 100vw;
     height: 80px;
-    border-bottom: 1px solid #efefef;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
-    /* background: #e5e5e5; */
 `
 
 const Form = styled.form`
     width: 570px;
     display: flex;
+    position: relative;
     justify-content: space-around;
-    /* border: 2px dashed black;     */
-    /* background-color: #56CCF2; */
-    /* display: flex; */
-    /* flex-wrap: wrap; */
-    /* justify-content: center; */
-    /* align-items: space-around; */
 `
 const Input = styled.input`
     height: 33px;
-    /* padding: 0 10px; */
     border: 1px solid #ddd; 
     border-radius: 5px;
     box-sizing: border-box;
     outline: none;
     box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
     font-size: 16px;   
-    /* margin-right: 15px; */
+    
+`
+
+const Div = styled.div`
+    height: 33px;
+    border: 1px solid #ddd; 
+    border-radius: 5px;
+    box-sizing: border-box;
+    outline: none;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
+    font-size: 16px;   
 `
 
 const H1 = styled.h1`
     margin-left: 20px;
     color: #00c6ff;
-
-`
-
-const Div = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-`
-const Div2 = styled.div`
-    font-size: .7rem;
-    color: rgb(221, 65, 65);
-    font-weight: bold;
-    position: absolute;
-    right: 610px;
-`
-
-const Div3 = styled.div`
-    font-size: .7rem;
-    color: rgb(221, 65, 65);
-    font-weight: bold;
-    position: absolute;
-    right: 610px;
 `
 
 const Button = styled.button`
@@ -74,7 +53,6 @@ const Button = styled.button`
     border: 2px solid #00c6ff;
     border-radius: 4px;
     color: white;
-    /* margin: 10px; */
     background: #55a532 linear-gradient(#00d2ff, #3a7bd5);
     &:last-child {
         margin-right: 10px;
@@ -83,6 +61,106 @@ const Button = styled.button`
 
 
 
+const Category = styled.div`
+    width: 100%;
+    height: 80px;
+    border-top: 1px solid #efefef;
+    border-bottom: 1px solid #efefef;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 30px;
+`
+const Menu = styled.div`
+    /* color: #00c6ff; */
+    font-size: 16px;
+    /* font-weight: 550; */
+`
+
+const Flag = styled.div`
+    
+      width: 24px;
+      height: 10px;
+      box-sizing: content-box;
+      padding-top: 15px;
+      position: relative;
+      background: #00c6ff;
+      color: white;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-align: center;
+      text-transform: uppercase;
+    
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-bottom: 9px solid white;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+    }
+`
+
+const Body = styled.div`
+    width: 1438px;
+    height: 600px;
+    /* border: 1px dashed dodgerblue; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+const BodyContainer = styled.div`
+    width: 1430px;
+    height: 590px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    /* border: 1px dashed blue; */
+`
+
+
+
+
+
+const Flag2 = styled.div`
+    
+      width: 24px;
+      height: 10px;
+      box-sizing: content-box;
+      padding-top: 15px;
+      position: relative;
+      background: #00c6ff;
+      color: white;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-align: center;
+      text-transform: uppercase;
+    
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      
+      border-bottom: 9px solid white;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+    }
+`
+
+
+
+const Footer = styled.footer`
+    width: 100vw;
+    height:200px;
+    border-top: 1px solid #efefef;
+`
 
 //   function isMoreThan4Length(value) {
 //     return value.length >= 4
@@ -101,46 +179,90 @@ const Button = styled.button`
 
 
 function Home() {
-    const [password, setPassword] = useState(false);
-    const [ID, setId] = useState(false);
-    //비밀번호 유효성 검사
-    const checkPassword = (e) => {
-    //  8 ~ 10자 영문, 숫자 조합
-    let regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/
-    // 형식에 맞는 경우 true 리턴
-    if(regExp.test(e.target.value)) {
-        setPassword(true)
-        return true
-    } else {
-        setPassword(false)
-        return false
-    }
-    }
-    const checkId = (e) => {    
-        let regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/
-        if(regExp.test(e.target.value)) {
-            
-            setId(true)
-            
-            return true
-        } else {
-            setId(false)
-            
-            return false;
-        }
-    }
-    
+    const [userInfo, setUserInfo] = useState({
+        userId: '',
+        password: ''
+    });
+    const [isLogin, setIsLogin] = useState(false);
+    // console.log('로그인여부',isLogin)
+    const handleInputValue = (key) => (e) => {
+        setUserInfo({ ...userInfo, [key]: e.target.value });    
+      };
 
+      const isAuthenticated = () => {
+        // TODO: 이제 인증은 성공했습니다. 사용자 정보를 호출하고, 이에 성공하면 로그인 상태를 바꿉시다.
+        axios.get('http://localhost:4003/auth')
+        .then((res) => {
+          setUserInfo(res)
+        })
+        setIsLogin(true)
+      };
+
+    const handleResponseSuccess = () => {
+        isAuthenticated();
+      };
+
+    const handleLogin = () => {    
+        if(userInfo.userId && userInfo.password) {
+          console.log('로그인여부',isLogin)
+        axios.post('http://localhost:4003/signin', {
+        userId: userInfo.email,
+        password: userInfo.password
+      }).then(res => {
+        handleResponseSuccess(res)
+      })
+      } else {
+        alert('please, check your ID or Password')
+        return
+      }
+    }
+
+  
+  
+  // const handleLogout = () => {
+  //   axios.post('https://localhost:4003/signout').then((res) => {
+  //     setUserinfo(null);
+  //     setIsLogin(false);
+      
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   isAuthenticated();
+  // }, []);
+    
     return (
+        <>
         <Header>
             <H1>PAPER AQUARIUM</H1>
-            <Form>
-            <Input placeholder='userId'/>
-            <Input placeholder='password'/>
-            <Button>Login</Button>
+            <Form  onSubmit={(e) => e.preventDefault()}>
+                {isLogin?<Div></Div>:<Input placeholder='userId'onChange={handleInputValue('userId')}/>}
+                {isLogin?<Div></Div>:<Input placeholder='Password' className='pwInput' type='password' onChange={handleInputValue('password')}/>}
+                {isLogin?<Button type='submit' onClick={handleLogin}>Logout</Button>:<Button type='submit' onClick={handleLogin}>Login</Button>}
+                {/* {isLogin?<Input placeholder='userId'onChange={handleInputValue('userId')}/>:<Div></Div>} */}
+                {/* {isLogin?<Input placeholder='Password' className='pwInput' type='password' onChange={handleInputValue('password')}/>:<Div></Div>} */}
+                {/* {isLogin?<Button type='submit' onClick={handleLogin}>Login</Button>:<Button type='submit' onClick={handleLogin}>Logout</Button>} */}
             <Link to="/signup"><Button>SignUp</Button></Link>
             </Form>
         </Header>
+        <Category>
+            <Flag/><Menu>All</Menu>
+            <Flag/><Menu>Book</Menu>
+            <Flag/><Menu>Note</Menu>
+            <Flag/><Menu>ETC</Menu><Flag/>           
+        </Category>
+        <Body>
+            <BodyContainer>
+                <Item />
+                <Item />
+                <Item />
+            </BodyContainer>
+
+        </Body>
+        <Footer>
+
+        </Footer>
+        </>
     )
 }
 
