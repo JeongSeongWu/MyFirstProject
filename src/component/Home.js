@@ -32,11 +32,11 @@ const Input = styled.input`
 
 const Div = styled.div`
     height: 33px;
-    border: 1px solid #ddd; 
-    border-radius: 5px;
+    /* border: 1px solid #ddd;  */
+    /* border-radius: 5px; */
     box-sizing: border-box;
     outline: none;
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
+    /* box-shadow: inset 0 1px 2px rgba(0,0,0,0.075); */
     font-size: 16px;   
 `
 
@@ -53,9 +53,20 @@ const Button = styled.button`
     border: 2px solid #00c6ff;
     border-radius: 4px;
     color: white;
+    cursor: pointer;
     background: #55a532 linear-gradient(#00d2ff, #3a7bd5);
+    position: relative;
     &:last-child {
         margin-right: 10px;
+    }
+    &:hover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.07);
     }
 `
 
@@ -68,6 +79,7 @@ const Category = styled.div`
     border-bottom: 1px solid #efefef;
     display: flex;
     justify-content: space-evenly;
+    /* background: #55a532 linear-gradient(#00d2ff, #3a7bd5); */
     align-items: center;
     margin-bottom: 30px;
 `
@@ -191,7 +203,7 @@ function Home() {
 
       const isAuthenticated = () => {
         // TODO: 이제 인증은 성공했습니다. 사용자 정보를 호출하고, 이에 성공하면 로그인 상태를 바꿉시다.
-        axios.get('http://localhost:4003/auth')
+        axios.get('https://localhost:4050/auth')
         .then((res) => {
           setUserInfo(res)
         })
@@ -204,28 +216,28 @@ function Home() {
 
     const handleLogin = () => {    
         if(userInfo.userId && userInfo.password) {
-          console.log('로그인여부',isLogin)
-        axios.post('http://localhost:4003/signin', {
-        userId: userInfo.email,
+        axios.post('https://localhost:4050/signin', {
+        userId: userInfo.userId,
         password: userInfo.password
       }).then(res => {
         handleResponseSuccess(res)
-      })
+      }).catch(err => console.log(err))
       } else {
         alert('please, check your ID or Password')
-        return
       }
     }
 
-  
-  
-  // const handleLogout = () => {
-  //   axios.post('https://localhost:4003/signout').then((res) => {
-  //     setUserinfo(null);
-  //     setIsLogin(false);
-      
-  //   });
-  // };
+    const handleLogout = () => {
+        axios.post('https://localhost:4050/signout')
+        .then(res => {
+            setUserInfo({
+                userId: '',
+                password: ''
+            });
+            setIsLogin(false);
+        })
+    }
+
 
   // useEffect(() => {
   //   isAuthenticated();
@@ -236,13 +248,10 @@ function Home() {
         <Header>
             <H1>PAPER AQUARIUM</H1>
             <Form  onSubmit={(e) => e.preventDefault()}>
-                {isLogin?<Div></Div>:<Input placeholder='userId'onChange={handleInputValue('userId')}/>}
-                {isLogin?<Div></Div>:<Input placeholder='Password' className='pwInput' type='password' onChange={handleInputValue('password')}/>}
-                {isLogin?<Button type='submit' onClick={handleLogin}>Logout</Button>:<Button type='submit' onClick={handleLogin}>Login</Button>}
-                {/* {isLogin?<Input placeholder='userId'onChange={handleInputValue('userId')}/>:<Div></Div>} */}
-                {/* {isLogin?<Input placeholder='Password' className='pwInput' type='password' onChange={handleInputValue('password')}/>:<Div></Div>} */}
-                {/* {isLogin?<Button type='submit' onClick={handleLogin}>Login</Button>:<Button type='submit' onClick={handleLogin}>Logout</Button>} */}
-            <Link to="/signup"><Button>SignUp</Button></Link>
+                {isLogin?<Div>Wellcom, {userInfo.userId}!</Div>:<Input placeholder='userId'onChange={handleInputValue('userId')}/>}
+                {isLogin?"":<Input placeholder='Password' className='pwInput' type='password' onChange={handleInputValue('password')}/>}
+                {isLogin?<Button type='submit' onClick={handleLogout}>Logout</Button>:<Button type='submit' onClick={handleLogin}>Login</Button>}
+                {isLogin?"":<Link to="/signup"><Button>SignUp</Button></Link>}
             </Form>
         </Header>
         <Category>

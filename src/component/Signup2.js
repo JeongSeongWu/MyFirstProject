@@ -60,8 +60,18 @@ const Button = styled.button`
     border-radius: 4px;
     color: white;
     margin: 10px;
+    cursor: pointer;
     background: #55a532 linear-gradient(#00d2ff, #3a7bd5);
-    
+    position: relative;
+    &:hover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.07);
+    }
 `
 
 function SignUp() {
