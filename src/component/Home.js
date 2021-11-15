@@ -134,10 +134,6 @@ const BodyContainer = styled.div`
     /* border: 1px dashed blue; */
 `
 
-
-
-
-
 const Flag2 = styled.div`
     
       width: 24px;
@@ -166,29 +162,11 @@ const Flag2 = styled.div`
     }
 `
 
-
-
 const Footer = styled.footer`
     width: 100vw;
     height:200px;
     border-top: 1px solid #efefef;
 `
-
-//   function isMoreThan4Length(value) {
-//     return value.length >= 4
-//   }
-  
-//   // [유효성 검증 함수]: 영어 또는 숫자만 가능
-//   function onlyNumberAndEnglish(str) {
-//     return /^[A-Za-z][A-Za-z0-9]*$/.test(str);
-//   }
-  
-//   // [유효성 검증 함수]: 최소 8자 이상하면서, 알파벳과 숫자 및 특수문자(@$!%*#?&) 는 하나 이상 포함
-//   function strongPassword(str) {
-//     return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(str);
-//   }
-
-
 
 function Home() {
     const [userInfo, setUserInfo] = useState({
@@ -196,18 +174,18 @@ function Home() {
         password: ''
     });
     const [isLogin, setIsLogin] = useState(false);
-    // console.log('로그인여부',isLogin)
+    
     const handleInputValue = (key) => (e) => {
         setUserInfo({ ...userInfo, [key]: e.target.value });    
       };
 
-      const isAuthenticated = () => {
-        // TODO: 이제 인증은 성공했습니다. 사용자 정보를 호출하고, 이에 성공하면 로그인 상태를 바꿉시다.
+    const isAuthenticated = () => {
         axios.get('https://localhost:4050/auth')
         .then((res) => {
-          setUserInfo(res)
+          setUserInfo(res.data.data.userInfo)
+          setIsLogin(true)
         })
-        setIsLogin(true)
+        .catch(err => console.log(err))
       };
 
     const handleResponseSuccess = () => {
@@ -220,13 +198,17 @@ function Home() {
         userId: userInfo.userId,
         password: userInfo.password
       }).then(res => {
+          console.log('응답이 뭔지 보자!',res)
         handleResponseSuccess(res)
-      }).catch(err => console.log(err))
-      } else {
-        alert('please, check your ID or Password')
-      }
+      }).catch(err => alert('please, check your ID or Password'))
+      } 
     }
 
+
+
+
+
+    
     const handleLogout = () => {
         axios.post('https://localhost:4050/signout')
         .then(res => {
@@ -248,7 +230,7 @@ function Home() {
         <Header>
             <H1>PAPER AQUARIUM</H1>
             <Form  onSubmit={(e) => e.preventDefault()}>
-                {isLogin?<Div>Wellcom, {userInfo.userId}!</Div>:<Input placeholder='userId'onChange={handleInputValue('userId')}/>}
+                {isLogin?<Div>Wellcom, {userInfo.userName}!</Div>:<Input placeholder='userId'onChange={handleInputValue('userId')}/>}
                 {isLogin?"":<Input placeholder='Password' className='pwInput' type='password' onChange={handleInputValue('password')}/>}
                 {isLogin?<Button type='submit' onClick={handleLogout}>Logout</Button>:<Button type='submit' onClick={handleLogin}>Login</Button>}
                 {isLogin?"":<Link to="/signup"><Button>SignUp</Button></Link>}
