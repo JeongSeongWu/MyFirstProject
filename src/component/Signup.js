@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router'
+
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
@@ -78,7 +80,8 @@ const Button = styled.button`
 function SignUp() {
     // const [password, setPassword] = useState(true);
     // const [ID, setId] = useState(false);
-    const [userInfo, setUserInfo] = useState({
+    const navigate = useNavigate();
+    const [userinfo, setuserinfo] = useState({
         userId: '',
         password: '',
         email: '',
@@ -87,34 +90,38 @@ function SignUp() {
 
     // const onChange = (e) => {
     //     const { value, password } = e.target; // 우선 e.target 에서 name 과 value 를 추출
-    //     setUserInfo({
-    //       ...userInfo, // 기존의 input 객체를 복사한 뒤
+    //     setuserinfo({
+    //       ...userinfo, // 기존의 input 객체를 복사한 뒤
     //       [password]: value // name 키를 가진 값을 value 로 설정
     //     });
     //   };
 
     const handleInputValue = (key) => (e) => {
-        setUserInfo({ ...userInfo, [key]: e.target.value });
-        console.log('유저정보',userInfo)
+        setuserinfo({ ...userinfo, [key]: e.target.value });
+        console.log('유저정보',userinfo)
       };
 
     //   const handleChange = (e) => {
-    //     setUserInfo({
+    //     setuserinfo({
     //       [e.target.name]: e.target.value, // <- 변경 후
     //     });
     //   };
     
     const handleSignUp = () => {
-        if(userInfo.userId && userInfo.password && userInfo.email && userInfo.userName) {
+        if(userinfo.userId && userinfo.password && userinfo.email && userinfo.userName) {
             axios.post('https://localhost:4050/signup', {
-                userId: userInfo.userId,
-                password: userInfo.password,
-                email: userInfo.email,
-                userName: userInfo.userName
+                userId: userinfo.userId,
+                password: userinfo.password,
+                email: userinfo.email,
+                userName: userinfo.userName
             })
             .then(res => {
-                alert('회원가입 완료!')
+                if(res.data.message === 'ok') {
+                    navigate('/');  
+                }
+                
             })
+            .catch(err => console.log(err))
         }
     }
 

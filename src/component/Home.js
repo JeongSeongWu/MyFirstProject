@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import Item from './Item'
 import axios from 'axios'
+import { useNavigate } from 'react-router'
 
 const Header = styled.header`
     width: 100vw;
@@ -174,7 +175,7 @@ function Home() {
         password: ''
     });
     const [isLogin, setIsLogin] = useState(false);
-    
+    const navigate = useNavigate();
     const handleInputValue = (key) => (e) => {
         setUserInfo({ ...userInfo, [key]: e.target.value });    
       };
@@ -200,7 +201,11 @@ function Home() {
       }).then(res => {
         //   console.log('응답이 뭔지 보자!',res)
         handleResponseSuccess(res)
-      }).catch(err => alert('please, check your ID or Password'))
+      })
+      .then(res => {
+        // navigate('/mypage')
+      })
+      .catch(err => alert('please, check your ID or Password'))
       } 
     }
 
@@ -230,8 +235,8 @@ function Home() {
         <Header>
             <H1>PAPER AQUARIUM</H1>
             <Form  onSubmit={(e) => e.preventDefault()}>
-                {isLogin?<Div>Wellcom, {userInfo.userName}!</Div>:<Input placeholder='userId'onChange={handleInputValue} value={userInfo.userId}/>}
-                {isLogin?"":<Input placeholder='Password' className='pwInput' type='password' onChange={handleInputValue} value={userInfo.password}/>}
+                {isLogin?<Div>Wellcom, {userInfo.userName}!</Div>:<Input placeholder='userId'onChange={handleInputValue('userId')} autoComplete='on'/>}
+                {isLogin?"":<Input placeholder='Password' className='pwInput' type='password' onChange={handleInputValue('password')} autoComplete='on'/>}
                 {isLogin?<Button type='submit' onClick={handleLogout}>Logout</Button>:<Button type='submit' onClick={handleLogin}>Login</Button>}
                 {isLogin?"":<Link to="/signup"><Button>SignUp</Button></Link>}
             </Form>
