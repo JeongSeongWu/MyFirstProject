@@ -1,105 +1,57 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
-
-
-const LoginBack = styled.div`
+const Container = styled.div`
     width: 100vw;
     height: 100vh;
-    background-color: white;
+    /* background-color: lightgray; */
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    /* background: #2F80ED; */
 `
 
-const LoginBack2 = styled.div`
+const LoginContainer = styled.div`
     width: 400px;
-    height: 420px;
+    height: 510px;
     border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid red;
-    /* background: #00d2ff; */
     background: #55a532 linear-gradient(#00d2ff, #3a7bd5);
-    /* opacity: 0.3; */
-`
-
-const LoginContainer = styled.div`
-    width: 100vw;
-    height: 450px;
-    border: 2px dashed blue;    
-    /* background-color: #56CCF2; */
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: center;
-    /* color: #2F80ED; */
 `
 
 const Form = styled.form`
-    width: 100vw;
-    height: 350px;
-    border: 2px dashed black;    
-    /* background-color: #56CCF2; */
-    /* display: flex; */
-    /* flex-wrap: wrap; */
-    /* justify-content: center; */
-    /* align-items: space-around; */
+    width: 360px;
+    height: 500px;
+    /* border: 2px dashed black;     */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+`
+const H1 = styled.h1`
+    color: #efefef;
+`
+const Div = styled.div`
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid tomato;     */
 `
 const Input = styled.input`
     width: 340px;
     height: 40px;   
     margin: 10px;
 `
-
-const H1 = styled.h1`
-    /* margin-left: 10px; */
-    color: #efefef;
-`
-
-const Div = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    
-    border: 1px solid tomato;    
-    > .password {
-        /* border: 1px solid red;     */
-        position: relative;
-    }
-`
-
-const Div5 = styled.div`
-    
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid red;    
-    position: relative;
-`
-
 const Div2 = styled.div`
     font-size: .7rem;
     color: rgb(221, 65, 65);
     font-weight: bold;
     position: absolute;
-    right: 570px;
+    right: 20px;
 `
-
-const Div3 = styled.div`
-    font-size: .7rem;
-    color: rgb(221, 65, 65);
-    font-weight: bold;
-    position: absolute;
-    right: 610px;
-`
-
 const Button = styled.button`
     width: 350px;
     height: 40px;
@@ -109,81 +61,122 @@ const Button = styled.button`
     border-radius: 4px;
     color: white;
     margin: 10px;
+    cursor: pointer;
     background: #55a532 linear-gradient(#00d2ff, #3a7bd5);
-    /* &:active { */
-        /* content: ""; */
-        /* position: absolute; */
-        /* top: 0; */
-        /* left: 0; */
-        /* width: 100% ; */
-        /* height: 100% ; */
-        /* background: rgba(0, 0, 0, 0.07); */
-        /* background: #021B79;
-        color: white; */
-    /* }; */
-    /* &:hover::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100% ;
-        height: 100% ;
-        background: rgba(0, 0, 0, 0.07);
-    } */
+    position: relative;
+    &:hover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.07);
+    }
 `
 
-
-
-
-//   function isMoreThan4Length(value) {
-//     return value.length >= 4
-//   }
-  
-//   // [유효성 검증 함수]: 영어 또는 숫자만 가능
-//   function onlyNumberAndEnglish(str) {
-//     return /^[A-Za-z][A-Za-z0-9]*$/.test(str);
-//   }
-  
-//   // [유효성 검증 함수]: 최소 8자 이상하면서, 알파벳과 숫자 및 특수문자(@$!%*#?&) 는 하나 이상 포함
-//   function strongPassword(str) {
-//     return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(str);
-//   }
-
-
-
 function SignUp() {
-    const [password, setPassword] = useState(true);
-    const [ID, setId] = useState(false);
-    //비밀번호 유효성 검사
-    const checkPassword = (e) => {
-    //  8 ~ 10자 영문, 숫자 조합
-    let regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/
-    // 형식에 맞는 경우 true 리턴
-    if(regExp.test(e.target.value)) {
-        setPassword(true)
-        
-    } else {
-        setPassword(false)
-        
-    }
-    }
-    const checkId = (e) => {    
-        let regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/
-        if(regExp.test(e.target.value)) {
-            
-            setId(true)
-            
-            return true
-        } else {
-            setId(false)
-            
-            return false;
+    // const [password, setPassword] = useState(true);
+    // const [ID, setId] = useState(false);
+    const [userInfo, setUserInfo] = useState({
+        userId: '',
+        password: '',
+        email: '',
+        userName: ''
+    })
+
+    // const onChange = (e) => {
+    //     const { value, password } = e.target; // 우선 e.target 에서 name 과 value 를 추출
+    //     setUserInfo({
+    //       ...userInfo, // 기존의 input 객체를 복사한 뒤
+    //       [password]: value // name 키를 가진 값을 value 로 설정
+    //     });
+    //   };
+
+    const handleInputValue = (key) => (e) => {
+        setUserInfo({ ...userInfo, [key]: e.target.value });
+        console.log('유저정보',userInfo)
+      };
+
+    //   const handleChange = (e) => {
+    //     setUserInfo({
+    //       [e.target.name]: e.target.value, // <- 변경 후
+    //     });
+    //   };
+    
+    const handleSignUp = () => {
+        if(userInfo.userId && userInfo.password && userInfo.email && userInfo.userName) {
+            axios.post('https://localhost:4050/signup', {
+                userId: userInfo.userId,
+                password: userInfo.password,
+                email: userInfo.email,
+                userName: userInfo.userName
+            })
+            .then(res => {
+                alert('회원가입 완료!')
+            })
         }
     }
+
+
+    //비밀번호 유효성 검사
+    // const checkPassword = (e) => {
+    // //  8 ~ 10자 영문, 숫자 조합
+    // let regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/
+    // // 형식에 맞는 경우 true 리턴
+    // if(regExp.test(e.target.value)) {
+    //     setPassword(true)
+        
+    // } else {
+    //     setPassword(false)
+    // }
+    // }
+    // const checkId = (e) => {    
+    //     let regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/
+    //     if(regExp.test(e.target.value)) {
+            
+    //         setId(true)
+            
+    //         return true
+    //     } else {
+    //         setId(false)
+            
+    //         return false;
+    //     }
+    // }
     
 
     return (
-        <LoginBack>
+    <Container>
+        <LoginContainer>
+            <Form>
+                <H1>SignUp</H1>
+                <Div>
+                    <Input name='userId' placeholder='UserId' className='idInput' onChange={handleInputValue('userId')}/>
+                </Div>
+                <Div>
+                    <Input placeholder='UserName' className='idInput' onChange={handleInputValue('userName')}/>
+                </Div>
+                <Div>
+                    <Input name='password' placeholder='Password' className='password' type='password' onChange={handleInputValue('password')}/>
+                    {/* {password?<Div2></Div2>:<Div2>Not valid</Div2>} */}
+                </Div>
+                <Div>
+                    <Input placeholder='Password-check' className='pwInput' type='password'/>
+                </Div>
+                <Div>
+                    <Input name='email' placeholder='e-mail' className='pwInput' type='email' onChange={handleInputValue('email')}/>
+                </Div>
+                <Div>
+                    <Button onClick={handleSignUp}>SignUp</Button>
+                </Div>
+            </Form>
+        </LoginContainer>
+    </Container>
+    )
+
+}
+{/* <LoginBack>
             <LoginBack2>
             <LoginContainer>
                 <H1>SignUp</H1>
@@ -207,9 +200,5 @@ function SignUp() {
                 </Form>
             </LoginContainer>
             </LoginBack2>
-        </LoginBack>
-    )
-
-}
-
+        </LoginBack> */}
 export default SignUp

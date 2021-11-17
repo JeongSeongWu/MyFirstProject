@@ -198,7 +198,7 @@ function Home() {
         userId: userInfo.userId,
         password: userInfo.password
       }).then(res => {
-          console.log('응답이 뭔지 보자!',res)
+        //   console.log('응답이 뭔지 보자!',res)
         handleResponseSuccess(res)
       }).catch(err => alert('please, check your ID or Password'))
       } 
@@ -230,8 +230,8 @@ function Home() {
         <Header>
             <H1>PAPER AQUARIUM</H1>
             <Form  onSubmit={(e) => e.preventDefault()}>
-                {isLogin?<Div>Wellcom, {userInfo.userName}!</Div>:<Input placeholder='userId'onChange={handleInputValue('userId')}/>}
-                {isLogin?"":<Input placeholder='Password' className='pwInput' type='password' onChange={handleInputValue('password')}/>}
+                {isLogin?<Div>Wellcom, {userInfo.userName}!</Div>:<Input placeholder='userId'onChange={handleInputValue} value={userInfo.userId}/>}
+                {isLogin?"":<Input placeholder='Password' className='pwInput' type='password' onChange={handleInputValue} value={userInfo.password}/>}
                 {isLogin?<Button type='submit' onClick={handleLogout}>Logout</Button>:<Button type='submit' onClick={handleLogin}>Login</Button>}
                 {isLogin?"":<Link to="/signup"><Button>SignUp</Button></Link>}
             </Form>
@@ -257,29 +257,5 @@ function Home() {
     )
 }
 
-
-{/* <HomeBack>
-            <HomeBack2>
-            <HomeContainer>
-                <H1>PAPER AQUARIUM</H1>
-                <Form>
-                    <Div>
-                        <Input placeholder='Username' className='idInput' onChange={checkId}/>
-                        {ID?<Div3>영문과 숫자만 가능합니다.</Div3>:<Div3></Div3>}
-                    </Div>
-                    <Div>
-                        <Input placeholder='Password' className='pwInput' type='password' onChange={checkPassword}/>
-                        {password?<Div2>유효하지 않습니다.</Div2>:<Div2></Div2>}
-                    </Div>
-                    <Div>
-                        <Button>LogIn</Button>
-                    </Div>
-                    <Div>
-                    <Link to="/signup"><Button>SignUp</Button></Link>
-                    </Div>
-                </Form>
-            </HomeContainer>
-            </HomeBack2>
-        </HomeBack> */}
 
 export default Home
