@@ -16,7 +16,7 @@ const ToggleContainer = styled.div`
         left: -75px;
         transition: all .25s ease;
         &.toggle--checked {
-            left: -25px;
+            left: -35px;
             color: #00c6ff;
         }
     }
@@ -36,11 +36,7 @@ function CartIcon() {
         </ToggleContainer>
       </>
     );
-    return (
     
-        <FontAwesomeIcon icon={faShoppingCart} size='2x' color='#e5e5e5' className='cart'/>
-    
-    );
 }
 
 export default CartIcon;

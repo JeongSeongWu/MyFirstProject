@@ -119,7 +119,6 @@ function SignUp() {
                 if(res.data.message === 'ok') {
                     navigate('/');  
                 }
-                
             })
             .catch(err => console.log(err))
         }

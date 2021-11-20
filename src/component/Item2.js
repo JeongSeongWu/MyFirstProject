@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import reefNote from '../img/reefnote2.png'
+import guidebook from '../img/guidebook.jpeg'
 import CartIcon from './CartIcon'
 
 const ItemContainer = styled.div`
@@ -39,12 +39,12 @@ const Price = styled.div`
 function Item() {
     return (
         <ItemContainer>
-            <Img src={reefNote} alt="reefNote"/>
+            <Img src={guidebook} alt="reefNote"/>
         <Div>
-            <ItemName>Reef Note</ItemName>
+            <ItemName>Aquarium Guide Book</ItemName>
             <Div2><CartIcon /></Div2>
         </Div>
-            <Price>3,000₩</Price>
+            <Price>7,000₩</Price>
         </ItemContainer>
     )
 }

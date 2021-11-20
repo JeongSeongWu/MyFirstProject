@@ -2,8 +2,18 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import Item from './Item'
+import Item2 from './Item2'
+import Item3 from './Item3'
+import Item4 from './Item4'
 import axios from 'axios'
 import { useNavigate } from 'react-router'
+import backImage from '../img/back.jpeg'
+import logo from '../img/logo.png'
+
+const HomeBackground = styled.div`
+    width: 100vw;
+    height: 100vh;
+`
 
 const Header = styled.header`
     width: 100vw;
@@ -28,7 +38,6 @@ const Input = styled.input`
     outline: none;
     box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
     font-size: 16px;   
-    
 `
 
 const Div = styled.div`
@@ -41,21 +50,31 @@ const Div = styled.div`
     font-size: 16px;   
 `
 
+const Img2 = styled.img`
+    width: 34px;
+    margin-right: 10px;   
+    margin-left: 10px;
+    /* border: 1px dashed blue; */
+`
 const H1 = styled.h1`
+    display: flex;
+    align-items: center;
     margin-left: 20px;
-    color: #00c6ff;
+    color: #3a7bd5;
+    /* border: 1px dotted darkgreen; */
 `
 
 const Button = styled.button`
     width: 100px;
-    height: 30px;
+    height: 34px;
     font-size: 14px;
     font-weight: bold;
-    border: 2px solid #00c6ff;
-    border-radius: 4px;
+    border: 1px solid #3a7bd5;
+    border-radius: 2px;
     color: white;
     cursor: pointer;
-    background: #55a532 linear-gradient(#00d2ff, #3a7bd5);
+    /* background: #55a532 linear-gradient(#00d2ff, #3a7bd5); */
+    background: #3a7bd5;
     position: relative;
     &:last-child {
         margin-right: 10px;
@@ -72,10 +91,10 @@ const Button = styled.button`
 `
 
 
-
+// 카테고리고 쓰다가 중간에 사진 넣는 용도로 바꿈
 const Category = styled.div`
     width: 100%;
-    height: 80px;
+    height: 270px;
     border-top: 1px solid #efefef;
     border-bottom: 1px solid #efefef;
     display: flex;
@@ -84,6 +103,12 @@ const Category = styled.div`
     align-items: center;
     margin-bottom: 30px;
 `
+const Img = styled.img`
+    width: 100%;
+    height: 270px;
+`
+
+
 const Menu = styled.div`
     /* color: #00c6ff; */
     font-size: 16px;
@@ -118,17 +143,17 @@ const Flag = styled.div`
 `
 
 const Body = styled.div`
-    width: 1438px;
-    height: 600px;
-    /* border: 1px dashed dodgerblue; */
+    width: 100vw;
+    height: 1200px;
+    /* border: 3px dashed red; */
     display: flex;
     justify-content: center;
     align-items: center;
 `
 
 const BodyContainer = styled.div`
-    width: 1430px;
-    height: 590px;
+    width: 80vw;
+    height: 100%;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -165,7 +190,7 @@ const Flag2 = styled.div`
 
 const Footer = styled.footer`
     width: 100vw;
-    height:200px;
+    height: 30%;
     border-top: 1px solid #efefef;
 `
 
@@ -231,9 +256,10 @@ function Home() {
   // }, []);
     
     return (
-        <>
+        <HomeBackground>
         <Header>
-            <H1>PAPER AQUARIUM</H1>
+            <H1><Img2 src={logo} alt='logo'/>PAPER AQUARIUM</H1>
+            {/* <Link to="/mypage"><Button>Mypage</Button></Link> */}
             <Form  onSubmit={(e) => e.preventDefault()}>
                 {isLogin?<Div>Wellcom, {userInfo.userName}!</Div>:<Input placeholder='userId'onChange={handleInputValue('userId')} autoComplete='on'/>}
                 {isLogin?"":<Input placeholder='Password' className='pwInput' type='password' onChange={handleInputValue('password')} autoComplete='on'/>}
@@ -242,25 +268,26 @@ function Home() {
             </Form>
         </Header>
         <Category>
-            <Flag/><Menu>All</Menu>
-            <Flag/><Menu>Book</Menu>
-            <Flag/><Menu>Note</Menu>
-            <Flag/><Menu>ETC</Menu><Flag/>           
+            <Img src={backImage} alt='image'/>
         </Category>
         <Body>
             <BodyContainer>
                 <Item />
-                <Item />
-                <Item />
+                <Item2 />
+                <Item3 />
+                <Item4 />
             </BodyContainer>
-
         </Body>
-        <Footer>
-
-        </Footer>
-        </>
+        <Footer/>
+        
+        </HomeBackground>
     )
 }
+{/* <Flag/><Menu>All</Menu>
+<Flag/><Menu>Book</Menu>
+<Flag/><Menu>Note</Menu>
+<Flag/><Menu>ETC</Menu><Flag/>            */}
 
+    
 
 export default Home
