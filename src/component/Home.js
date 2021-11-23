@@ -9,14 +9,17 @@ import axios from 'axios'
 import { useNavigate } from 'react-router'
 import backImage from '../img/back.jpeg'
 import logo from '../img/logo.png'
+import RightArrow from './RightArrow'
+import LeftArrow from './LeftArrow'
 
 const HomeBackground = styled.div`
-    width: 100vw;
-    height: 100vh;
+    /* width: 100vw; */
+    /* height: 100vh; */
+    /* background: gray; */
 `
 
 const Header = styled.header`
-    width: 100vw;
+    width: 98vw;
     height: 80px;
     display: flex;
     justify-content: space-between;
@@ -93,7 +96,7 @@ const Button = styled.button`
 
 // 카테고리고 쓰다가 중간에 사진 넣는 용도로 바꿈
 const Category = styled.div`
-    width: 100%;
+    width: 98vw;
     height: 270px;
     border-top: 1px solid #efefef;
     border-bottom: 1px solid #efefef;
@@ -143,8 +146,8 @@ const Flag = styled.div`
 `
 
 const Body = styled.div`
-    width: 100vw;
-    height: 1200px;
+    width: 98vw;
+    height: 500px;
     /* border: 3px dashed red; */
     display: flex;
     justify-content: center;
@@ -152,7 +155,7 @@ const Body = styled.div`
 `
 
 const BodyContainer = styled.div`
-    width: 80vw;
+    width: 80%;
     height: 100%;
     display: flex;
     justify-content: space-around;
@@ -189,7 +192,7 @@ const Flag2 = styled.div`
 `
 
 const Footer = styled.footer`
-    width: 100vw;
+    width: 98vw;
     height: 30%;
     border-top: 1px solid #efefef;
 `
@@ -272,10 +275,12 @@ function Home() {
         </Category>
         <Body>
             <BodyContainer>
+                <LeftArrow/>
                 <Item />
                 <Item2 />
                 <Item3 />
                 <Item4 />
+                <RightArrow/>
             </BodyContainer>
         </Body>
         <Footer/>

@@ -5,21 +5,24 @@ import guidebook from '../img/guidebook.jpeg'
 import CartIcon from './CartIcon'
 
 const ItemContainer = styled.div`
-    width: 330px;
-    height: 460px;
+    width: 240px;
+    height: 340px;
     /* border: 1px solid #efefef; */
-    margin: 30px;
+    margin: 15px;
 `
 
 const Img = styled.img`
-    width: 330px;
-    height: 390px;
+    width: 240px;
+    height: 340px;
+    /* border: 1px solid #000; */
+    /* box-shadow:2px 2px 3px 0px; */
 `
 
 const Div = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 5px;
     margin-bottom: 10px;
 `
 

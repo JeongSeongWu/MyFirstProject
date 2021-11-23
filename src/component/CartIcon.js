@@ -12,7 +12,7 @@ const ToggleContainer = styled.div`
     cursor: pointer;
     > .toggle-cart {
         position: absolute;
-        top: -10px;
+        top: 12px;
         left: -75px;
         transition: all .25s ease;
         &.toggle--checked {
